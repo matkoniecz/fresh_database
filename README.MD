@@ -1,8 +1,8 @@
 ```
 sudo apt-get install git -y
 cd ~/Desktop
-mkdir setup_statistics_service
-cd setup_statistics_service
+mkdir sc_statistics_service_development
+cd sc_statistics_service_development
 git clone https://github.com/matkoniecz/fresh_database.git
 cd fresh_database
 bash install.sh
