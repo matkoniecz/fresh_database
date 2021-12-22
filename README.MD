@@ -6,6 +6,8 @@ cd sc_statistics_service_development
 git clone https://github.com/matkoniecz/fresh_database.git
 cd fresh_database
 bash install.sh
+cd ..
+cd sc-statistics-service
 ```
 
 run
