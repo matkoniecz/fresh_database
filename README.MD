@@ -49,4 +49,4 @@ This can be obtained from changeset dumps which can be parsed, for example with 
 
 If this script will not be used [documentation there on obtaining changeset dump](https://github.com/matkoniecz/StreetComplete_usage_changeset_analysis#obtaining-input-data) can be still of interest.
 
-After user ids are obtained then calling `update_users.php $USER_ID` for each user id will fetch relevant changesets.
+After user ids are obtained then calling `php update_users.php $USER_ID` for each user id will fetch relevant changesets.
