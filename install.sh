@@ -9,13 +9,3 @@ sudo mysql -u root -e "CREATE DATABASE statistics;"
 sudo mysql -u root -e "CREATE USER statistics_user@localhost IDENTIFIED BY 'statistics_pw';"
 sudo mysql -u root -e "GRANT ALL PRIVILEGES ON statistics.* TO statistics_user@localhost;"
 sudo mysql -u root -e "FLUSH PRIVILEGES;"
-
-# to run command manually following would be the best to enter mysql prompt
-# sudo mysql -u root
-#
-# following commands may be nice initial ones to look around
-# SHOW DATABASES;
-# SHOW GRANTS FOR statistics_user@localhost;
-# USE statistics; #switch to statistics database
-# SHOW TABLES; # once on specific database
-# SELECT * from changesets; # this should show that database started to be used after initial queries

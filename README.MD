@@ -28,6 +28,18 @@ For example you can visit http://127.0.0.1:8000/get_statistics.php?user_id=17224
 
 You can obtain user id by visiting specific changeset, say https://www.openstreetmap.org/changeset/100000003 and following "osmChange XML" and looking for `uid=` that gives user id for author of given changeset.
 
+# Looking around the database
+
+to run command manually following would be the best to enter mysql prompt `sudo mysql -u root`
+
+Following commands may be nice initial ones to look around
+```
+SHOW DATABASES;
+SHOW GRANTS FOR statistics_user@localhost;
+USE statistics; #switch to statistics database
+SHOW TABLES; # once on specific database
+SELECT * from changesets; # this should show that database started to be used after initial queries
+```
 
 # Importing data for testing
 
