@@ -2,6 +2,9 @@ Describes setting up [sc-statistics-service](https://github.com/streetcomplete/s
 
 ```
 sudo apt-get install git -y
+```
+and after install if it was needed (commands split due to password input) run:
+```
 cd ~/Desktop
 mkdir sc_statistics_service_development
 cd sc_statistics_service_development
