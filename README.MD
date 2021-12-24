@@ -15,6 +15,9 @@ cd ..
 cd sc-statistics-service
 ```
 
+`install.sh` script will clone git repository to `sc-statistics-service` folder, install software necessary to run it and create databsse and database user with settings matching `config.sample.php`. It is using insecure password but should be OK for local development.
+
+
 `const DB_HOST = "localhost";` in the config file ( note https://github.com/streetcomplete/sc-statistics-service/compare/master...matkoniecz:patch-3 - test this Visual Studio Container thingy )
 
 after that you need to set username and password in the config file (mandatory?)
