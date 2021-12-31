@@ -34,6 +34,10 @@ For example you can visit http://127.0.0.1:8000/get_statistics.php?user_id=17224
 
 You can obtain user id by visiting specific changeset, say https://www.openstreetmap.org/changeset/100000003 and following "osmChange XML" and looking for `uid=` that gives user id for author of given changeset.
 
+# Using in StreetComplete
+
+Change `STATISTICS_BACKEND_URL` in the app and recompile.
+
 # Looking around the database
 
 to run command manually following would be the best to enter mysql prompt `sudo mysql -u root`
