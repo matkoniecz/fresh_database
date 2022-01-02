@@ -23,7 +23,9 @@ def main():
                     print(line)
                     user_id = line.split(",")[-1]
                     print(user_id)
-                    os.system("php update_users.php " + user_id)
+                    command = "php update_users.php " + user_id
+                    print(command)
+                    os.system(command)
                     #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
                     #response = requests.get(url)
                     #print(response.text)
