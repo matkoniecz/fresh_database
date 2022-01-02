@@ -1,5 +1,6 @@
 #import requests
 import sys
+import os
 
 def main():
     # changeset data can be obtained with https://github.com/matkoniecz/StreetComplete_usage_changeset_analysis#streetcomplete_edits_generate_csv_and_make_quest_summaryphp
