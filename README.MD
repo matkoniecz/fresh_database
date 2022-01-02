@@ -49,6 +49,7 @@ SHOW GRANTS FOR statistics_user@localhost;
 USE statistics; #switch to statistics database
 SHOW TABLES; # once on specific database
 SELECT * from changesets; # this should show that database started to be used after initial queries
+SELECT COUNT(*) from changesets; # less resource intensive
 ```
 
 # Importing data for testing
