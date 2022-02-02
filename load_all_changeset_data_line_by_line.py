@@ -14,22 +14,29 @@ def main():
     # just start it there...
     #os.chdir("~/Desktop/sc_statistics_service_development/sc-statistics-service") # make it more generic
 
+    procesed_users = []
+    skip_changeset_with_id_lower_than = 1 # allows quick restart of script after processing part of data
     file_location = sys.argv[1]
     row_count = 0
     # changeset_id,created_by,creation_date,changed_objects,user_id
     with open(file_location) as fp:
         for line in fp:
             if row_count != 0:
-                if "StreetComplete" in line.split(",")[1]:
-                    print(line)
+                if int(line.split(",")[0]) < skip_changeset_with_id_lower_than:
+                    continue
+                editor = line.split(",")[1]
+                if "StreetComplete" in editor or "Zażółć" in editor or "Zazolc" in editor:
                     user_id = line.split(",")[-1]
-                    print(user_id)
-                    command = "php update_users.php " + user_id
-                    print(command)
-                    os.system(command)
-                    #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
-                    #response = requests.get(url)
-                    #print(response.text)
+                    if user_id not in procesed_users:
+                        procesed_users.append(user_id)
+                        print(line)
+                        print(user_id)
+                        command = "php update_users.php " + user_id
+                        print(command)
+                        os.system(command)
+                        #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
+                        #response = requests.get(url)
+                        #print(response.text)
             row_count += 1
 
 main()
