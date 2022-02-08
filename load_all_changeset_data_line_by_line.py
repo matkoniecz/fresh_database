@@ -14,20 +14,24 @@ def main():
     # just start it there...
     #os.chdir("~/Desktop/sc_statistics_service_development/sc-statistics-service") # make it more generic
 
-    procesed_users = []
-    skip_changeset_with_id_lower_than = 1 # allows quick restart of script after processing part of data
+    procesed_users = set()
+    users_with_sc_edits_with_lower_than_this_are_processed = 1 # allows quick restart of script after processing part of data
     file_location = sys.argv[1]
     # changeset_id,created_by,creation_date,changed_objects,user_id
     with open(file_location) as fp:
         next(fp) # skip header
         for line in fp:
-            if int(line.split(",")[0]) < skip_changeset_with_id_lower_than:
-                continue
             editor = line.split(",")[1]
             if "StreetComplete" in editor or "Zażółć" in editor or "Zazolc" in editor:
-                user_id = line.split(",")[-1]
+                user_id = int(line.split(",")[-1])
+                if int(line.split(",")[0]) < users_with_sc_edits_with_lower_than_this_are_processed:
+                    if user_id not in procesed_users:
+                        # it is not necessary to process the same user multiple times
+                        # on repeated reruns of the script
+                        procesed_users.add(user_id)
+                    continue
                 if user_id not in procesed_users:
-                    procesed_users.append(user_id)
+                    procesed_users.add(user_id)
                     print(line)
                     print(user_id)
                     command = "php update_users.php " + user_id
