@@ -7,7 +7,7 @@ def main():
 
     if len(sys.argv) != 2:
         print("call it with a single arguments specifying location of a csv file")
-        print("csv file must be made in format ANY_FIELD,created_by,ANY_FIELD,ANY_FIELD,user_id")
+        print("csv file must be made in format changeset_id,created_by,ANY_FIELD,ANY_FIELD,user_id")
         print("(for example by https://github.com/matkoniecz/StreetComplete_usage_changeset_analysis#streetcomplete_edits_generate_csv_and_make_quest_summaryphp )")
         return
 
@@ -17,26 +17,24 @@ def main():
     procesed_users = []
     skip_changeset_with_id_lower_than = 1 # allows quick restart of script after processing part of data
     file_location = sys.argv[1]
-    row_count = 0
     # changeset_id,created_by,creation_date,changed_objects,user_id
     with open(file_location) as fp:
+        next(fp) # skip header
         for line in fp:
-            if row_count != 0:
-                if int(line.split(",")[0]) < skip_changeset_with_id_lower_than:
-                    continue
-                editor = line.split(",")[1]
-                if "StreetComplete" in editor or "Zażółć" in editor or "Zazolc" in editor:
-                    user_id = line.split(",")[-1]
-                    if user_id not in procesed_users:
-                        procesed_users.append(user_id)
-                        print(line)
-                        print(user_id)
-                        command = "php update_users.php " + user_id
-                        print(command)
-                        os.system(command)
-                        #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
-                        #response = requests.get(url)
-                        #print(response.text)
-            row_count += 1
+            if int(line.split(",")[0]) < skip_changeset_with_id_lower_than:
+                continue
+            editor = line.split(",")[1]
+            if "StreetComplete" in editor or "Zażółć" in editor or "Zazolc" in editor:
+                user_id = line.split(",")[-1]
+                if user_id not in procesed_users:
+                    procesed_users.append(user_id)
+                    print(line)
+                    print(user_id)
+                    command = "php update_users.php " + user_id
+                    print(command)
+                    os.system(command)
+                    #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
+                    #response = requests.get(url)
+                    #print(response.text)
 
 main()
