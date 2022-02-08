@@ -2,6 +2,14 @@
 import sys
 import os
 
+
+"""
+script that loads file listing changesets and based on that
+requests SC statistics database to fetch data about SC mappers
+
+Tested on Lubuntu 20.04. Unix is supported, Windows not.
+"""
+
 def main():
     # changeset data can be obtained with https://github.com/matkoniecz/StreetComplete_usage_changeset_analysis#streetcomplete_edits_generate_csv_and_make_quest_summaryphp
 
