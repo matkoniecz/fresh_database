@@ -1,7 +1,7 @@
 #import requests
 import sys
 import os
-
+import time
 
 """
 script that loads file listing changesets and based on that
@@ -41,12 +41,45 @@ def main():
                 if user_id not in procesed_users:
                     procesed_users.add(user_id)
                     print(line)
-                    print(user_id)
-                    command = "php update_users.php " + user_id
-                    print(command)
-                    os.system(command)
-                    #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
-                    #response = requests.get(url)
-                    #print(response.text)
+                    fetch_info_about_user(user_id)
 
+def fetch_info_about_user(user_id):
+    attempt = 1
+    while(True):
+        print(user_id)
+        command = "php update_users.php " + str(user_id)
+        print(command)
+        status = os.system(command)
+        if os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0:
+            return
+        else:
+            print(os.WIFEXITED(status))
+            print(os.WEXITSTATUS(status))
+            print("user update failed! Will retry!")
+            print("please check whether config.php of statistics script contains login data - logged in users are allowed much higher quota")
+            print("it was attempt", attempt)
+            time.sleep(100)
+            print("sleeping ended")
+            print("--------------------------------")
+            print()
+            print()
+            attempt += 1
+
+    #calling API - note that it is running only a partial update
+    #url = "127.0.0.1:8000/get_statistics.php?user_id=" + user_id
+    #response = requests.get(url)
+    #print(response.text)
+print("""
+Is there an API to detect deleted users?
+
+See https://www.openstreetmap.org/api/0.6/user/4909211 vs https://api.openstreetmap.org/api/0.6/user/1722488
+
+I can just assume that empty XML indicates deletion of user but sooner or later I will receive truncated/damaged/garbled response and misclassify such user as deleted
+
+I only discovered what is going on by visiting https://resultmaps.neis-one.org/osm-discussion-comments?uid=4909211
+
+See also https://github.com/streetcomplete/sc-statistics-service/issues/22
+""")
+
+fetch_info_about_user(4909211)
 main()
